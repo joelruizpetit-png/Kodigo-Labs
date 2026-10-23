@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kódigo Labs | Software a medida y soluciones digitales para empresas</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            orange: '#F97316',
+                            'orange-hover': '#EA580C',
+                            navy: '#0F172A',
+                            'navy-light': '#1E293B',
+                            charcoal: '#1E293B',
+                            slate: '#64748B',
+                            bg: '#F8FAFC',
+                            card: '#FFFFFF',
+                            border: '#E2E8F0'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+        }
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Outfit', sans-serif;
+        }
+        .glow-effect {
+            box-shadow: 0 0 50px -12px rgba(249, 115, 22, 0.25);
+        }
+        /* Custom scrollbar for mock preview screens */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #F1F5F9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-brand-bg text-brand-charcoal antialiased selection:bg-brand-orange selection:text-white">
+
+    <!-- ================= NAVBAR ================= -->
+    <header class="sticky top-0 z-50 bg-brand-navy/95 backdrop-blur-md border-b border-slate-800 text-white transition-all duration-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-brand-orange flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-orange-500/30 group-hover:scale-105 transition-transform">
+                        <i data-lucide="code-2" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-heading font-extrabold text-2xl tracking-tight text-white flex items-center gap-1">
+                            Kódigo<span class="text-brand-orange">.</span>Labs
+                        </span>
+                        <span class="text-[10px] text-slate-400 tracking-wider uppercase font-semibold">Digital Solutions</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                    <a href="#servicios" class="hover:text-brand-orange transition-colors">Servicios</a>
+                    <a href="#soluciones" class="hover:text-brand-orange transition-colors">Portales & CRM</a>
+                    <a href="#metodologia" class="hover:text-brand-orange transition-colors">Metodología</a>
+                    <a href="#calculadora" class="hover:text-brand-orange transition-colors">Calculadora ROI</a>
+                    <a href="#contacto" class="hover:text-brand-orange transition-colors">Contacto</a>
+                </nav>
+
+                <!-- Action Button -->
+                <div class="hidden md:flex items-center">
+                    <a href="#contacto" class="bg-brand-orange hover:bg-brand-orange-hover text-white px-5 py-2.5 rounded-xl font-semibold text-sm shadow-md shadow-orange-500/20 transition-all hover:shadow-lg hover:shadow-orange-500/30 active:scale-95 flex items-center gap-2">
+                        <span>Agendar Consulta</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white p-2">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile dropdown menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-navy border-b border-slate-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#servicios" class="mobile-link block py-2 text-slate-300 hover:text-brand-orange">Servicios</a>
+            <a href="#soluciones" class="mobile-link block py-2 text-slate-300 hover:text-brand-orange">Portales & CRM</a>
+            <a href="#metodologia" class="mobile-link block py-2 text-slate-300 hover:text-brand-orange">Metodología</a>
+            <a href="#calculadora" class="mobile-link block py-2 text-slate-300 hover:text-brand-orange">Calculadora ROI</a>
+            <a href="#contacto" class="mobile-link block py-2 text-slate-300 hover:text-brand-orange">Contacto</a>
+            <a href="#contacto" class="mobile-link block w-full text-center bg-brand-orange text-white py-3 rounded-xl font-semibold mt-4">
+                Agendar Consulta
+            </a>
+        </div>
+    </header>
+
+    <!-- ================= HERO SECTION ================= -->
+    <section class="relative bg-brand-navy text-white pt-12 pb-24 lg:pt-20 lg:pb-32 overflow-hidden">
+        <!-- Grid Background Pattern -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b15_1px,transparent_1px),linear-gradient(to_bottom,#1e293b15_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-brand-orange/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Left Column -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    
+                    <div class="inline-flex items-center gap-2 bg-slate-800/80 border border-slate-700/60 px-4 py-2 rounded-full text-xs font-semibold text-brand-orange uppercase tracking-wider shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-brand-orange animate-pulse"></span>
+                        Soluciones para Empresas & Agencias
+                    </div>
+
+                    <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15]">
+                        Transformamos la gestión de tu empresa con <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-amber-400">software a medida</span> e Inteligencia Artificial
+                    </h1>
+
+                    <p class="text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Creamos aplicaciones web, portales de clientes, CRM y ERP adaptados 100% a tus procesos para automatizar tareas, organizar el papeleo y escalar tu negocio sin caos administrativo.
+                    </p>
+
+                    <!-- Hero Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="#contacto" class="w-full sm:w-auto bg-brand-orange hover:bg-brand-orange-hover text-white px-8 py-4 rounded-xl font-bold text-base shadow-lg shadow-orange-500/25 transition-all hover:shadow-orange-500/40 hover:-translate-y-0.5 text-center flex items-center justify-center gap-2">
+                            <span>Solicitar Asesoría Gratuita</span>
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#soluciones" class="w-full sm:w-auto bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700 px-8 py-4 rounded-xl font-semibold text-base transition-all hover:border-slate-600 text-center flex items-center justify-center gap-2">
+                            <i data-lucide="play-circle" class="w-5 h-5 text-brand-orange"></i>
+                            <span>Ver Caso Práctico (Portal ISO)</span>
+                        </a>
+                    </div>
+
+                    <!-- Metrics Grid -->
+                    <div class="pt-8 border-t border-slate-800/80 grid grid-cols-3 gap-4 max-w-lg mx-auto lg:mx-0">
+                        <div class="text-center lg:text-left">
+                            <p class="font-heading text-2xl lg:text-3xl font-bold text-white">+60%</p>
+                            <p class="text-xs text-slate-400 mt-1">Ahorro en tiempo administrativo</p>
+                        </div>
+                        <div class="text-center lg:text-left">
+                            <p class="font-heading text-2xl lg:text-3xl font-bold text-white">100%</p>
+                            <p class="text-xs text-slate-400 mt-1">Adaptado a tu negocio</p>
+                        </div>
+                        <div class="text-center lg:text-left">
+                            <p class="font-heading text-2xl lg:text-3xl font-bold text-white">24/7</p>
+                            <p class="text-xs text-slate-400 mt-1">Acceso para tus clientes</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Right Column (Interactive Mock Dashboard Preview) -->
+                <div class="lg:col-span-5">
+                    <div class="relative mx-auto max-w-md lg:max-w-none">
+                        
+                        <!-- Glow behind card -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brand-orange/20 to-blue-600/20 rounded-3xl blur-2xl transform rotate-1 scale-95"></div>
+
+                        <!-- Card UI Wrapper -->
+                        <div class="relative bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden text-left font-sans">
+                            
+                            <!-- Window Title Bar -->
+                            <div class="bg-slate-800/90 px-4 py-3 border-b border-slate-700/70 flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+                                    <span class="w-3 h-3 rounded-full bg-yellow-500 inline-block"></span>
+                                    <span class="w-3 h-3 rounded-full bg-green-500 inline-block"></span>
+                                    <span class="text-xs text-slate-400 font-mono ml-2">portal.kodigolabs.app</span>
+                                </div>
+                                <span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Live Demo
+                                </span>
+                            </div>
+
+                            <!-- Dashboard Mock Content -->
+                            <div class="p-5 space-y-4">
+                                
+                                <!-- Header info -->
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-xs text-slate-400">Cliente: Empresa Industrial S.A.</p>
+                                        <h4 class="font-heading font-bold text-base text-white">Portal ISO 9001 & Facturación</h4>
+                                    </div>
+                                    <div class="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-brand-orange">
+                                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                                    </div>
+                                </div>
+
+                                <!-- Counters Row -->
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/50">
+                                        <p class="text-[11px] text-slate-400">Facturas Pendientes</p>
+                                        <p class="font-heading font-bold text-lg text-amber-400 mt-0.5">2 (1.450 €)</p>
+                                    </div>
+                                    <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/50">
+                                        <p class="text-[11px] text-slate-400">Documentación ISO</p>
+                                        <p class="font-heading font-bold text-lg text-emerald-400 mt-0.5">92% Lista</p>
+                                    </div>
+                                </div>
+
+                                <!-- Actionable Document List -->
+                                <div class="space-y-2">
+                                    <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Requerimientos Activos</p>
+                                    
+                                    <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/40 border border-slate-700/40 hover:border-slate-600 transition-colors">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="p-1.5 rounded bg-blue-500/10 text-blue-400">
+                                                <i data-lucide="file-text" class="w-4 h-4"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-xs font-medium text-white">Auditoría Q3_Firmada.pdf</p>
+                                                <p class="text-[10px] text-slate-400">Verificado con IA • Hoy</p>
+                                            </div>
+                                        </div>
+                                        <span class="text-[10px] bg-emerald-500/20 text-emerald-300 font-semibold px-2 py-0.5 rounded">Aprobado</span>
+                                    </div>
+
+                                    <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-800/40 border border-slate-700/40 hover:border-slate-600 transition-colors">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="p-1.5 rounded bg-amber-500/10 text-amber-400">
+                                                <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-xs font-medium text-white">Registro Mantenimiento.pdf</p>
+                                                <p class="text-[10px] text-slate-400">Pendiente de entrega</p>
+                                            </div>
+                                        </div>
+                                        <span class="text-[10px] bg-amber-500/20 text-amber-300 font-semibold px-2 py-0.5 rounded">Pendiente</span>
+                                    </div>
+                                </div>
+
+                                <!-- Dropzone Mock -->
+                                <div class="border-2 border-dashed border-slate-700 hover:border-brand-orange rounded-xl p-3 text-center transition-colors cursor-pointer bg-slate-800/20">
+                                    <i data-lucide="upload" class="w-5 h-5 mx-auto text-brand-orange mb-1"></i>
+                                    <p class="text-xs font-medium text-slate-300">Arrastra aquí facturas o papeleo en PDF</p>
+                                    <p class="text-[10px] text-slate-500 mt-0.5">El sistema valida el documento automáticamente</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= INTERACTIVE SHOWCASE SECTION ================= -->
+    <section id="soluciones" class="py-20 lg:py-28 bg-white border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-brand-orange font-semibold text-sm uppercase tracking-wider">Demostración Interactiva</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-brand-navy">
+                    Descubre cómo funciona el software que creamos para tu empresa
+                </h2>
+                <p class="text-brand-slate text-base sm:text-lg">
+                    Cambia de pestaña para previsualizar los módulos que tus clientes y tu equipo utilizarán cada día.
+                </p>
+            </div>
+
+            <!-- Tab Buttons -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mt-10">
+                <button onclick="switchTab('portal')" id="tab-portal" class="tab-btn active border-2 border-brand-orange bg-orange-50 text-brand-orange font-bold px-5 py-3 rounded-xl text-sm transition-all flex items-center gap-2 shadow-sm">
+                    <i data-lucide="user-check" class="w-4 h-4"></i>
+                    <span>Portal de Cliente (Facturas y Papeleo)</span>
+                </button>
+                <button onclick="switchTab('crm')" id="tab-crm" class="tab-btn border-2 border-slate-200 bg-white text-brand-slate font-semibold px-5 py-3 rounded-xl text-sm hover:border-slate-300 transition-all flex items-center gap-2">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                    <span>Panel Interno (CRM / ERP)</span>
+                </button>
+                <button onclick="switchTab('ai')" id="tab-ai" class="tab-btn border-2 border-slate-200 bg-white text-brand-slate font-semibold px-5 py-3 rounded-xl text-sm hover:border-slate-300 transition-all flex items-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <span>Automatización e IA</span>
+                </button>
+            </div>
+
+            <!-- Tab Content Display Wrapper -->
+            <div class="mt-8 bg-brand-bg border border-brand-border rounded-2xl p-4 sm:p-8 shadow-xl">
+                
+                <!-- TAB 1: PORTAL DE CLIENTE -->
+                <div id="content-portal" class="tab-content space-y-6">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-brand-border">
+                        <div>
+                            <span class="bg-orange-100 text-brand-orange text-xs font-bold px-3 py-1 rounded-full uppercase">Vista del Cliente</span>
+                            <h3 class="font-heading text-2xl font-bold text-brand-navy mt-1">Portal Extranet de Acceso Privado</h3>
+                            <p class="text-brand-slate text-sm">Tus clientes inician sesión para consultar el estado de su servicio, facturas y entregar documentos.</p>
+                        </div>
+                        <button onclick="document.getElementById('contacto').scrollIntoView({behavior: 'smooth'})" class="bg-brand-navy hover:bg-brand-navy-light text-white text-xs font-bold px-4 py-2.5 rounded-lg transition-colors flex items-center gap-1.5">
+                            <span>Quiero un portal así</span>
+                            <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Invoice Card Mock -->
+                        <div class="bg-white p-5 rounded-xl border border-brand-border shadow-sm space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-semibold text-slate-500">Facturación</span>
+                                <i data-lucide="receipt" class="w-5 h-5 text-brand-orange"></i>
+                            </div>
+                            <p class="text-2xl font-bold font-heading text-brand-navy">1.250,00 €</p>
+                            <div class="bg-amber-50 border border-amber-200 p-2.5 rounded-lg flex items-center justify-between">
+                                <span class="text-xs text-amber-800 font-medium">Factura #2026-089 (Pendiente)</span>
+                                <button class="bg-amber-600 text-white text-[10px] px-2 py-1 rounded font-bold hover:bg-amber-700">Pagar</button>
+                            </div>
+                        </div>
+
+                        <!-- Document Status Mock -->
+                        <div class="bg-white p-5 rounded-xl border border-brand-border shadow-sm space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-semibold text-slate-500">Documentación ISO 9001</span>
+                                <i data-lucide="folder-check" class="w-5 h-5 text-emerald-600"></i>
+                            </div>
+                            <p class="text-2xl font-bold font-heading text-emerald-600">8 / 9 Entregados</p>
+                            <p class="text-xs text-slate-500">Próxima auditoría: 15 de Noviembre 2026</p>
+                        </div>
+
+                        <!-- Dropzone Upload Mock -->
+                        <div class="bg-white p-5 rounded-xl border border-dashed border-brand-orange bg-orange-50/30 flex flex-col items-center justify-center text-center space-y-2">
+                            <i data-lucide="file-up" class="w-8 h-8 text-brand-orange"></i>
+                            <p class="text-xs font-bold text-brand-navy">Subir Papeleo o Certificados</p>
+                            <p class="text-[11px] text-slate-500">Formatos soportados: PDF, JPG, PNG</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: PANEL INTERNO CRM/ERP -->
+                <div id="content-crm" class="tab-content hidden space-y-6">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-brand-border">
+                        <div>
+                            <span class="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full uppercase">Vista del Administrador / Equipo</span>
+                            <h3 class="font-heading text-2xl font-bold text-brand-navy mt-1">Panel de Control Interno CRM & ERP</h3>
+                            <p class="text-brand-slate text-sm">Gestiona tus 150+ clientes, cobros, tareas de auditoría y oportunidades en un solo lugar.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-brand-border overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="border-b border-slate-200 text-slate-400 font-semibold uppercase">
+                                    <th class="pb-3">Empresa / Cliente</th>
+                                    <th class="pb-3">Servicio Contratado</th>
+                                    <th class="pb-3">Estado Papeleo</th>
+                                    <th class="pb-3">Cobro Mensual</th>
+                                    <th class="pb-3">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-slate-700">
+                                <tr>
+                                    <td class="py-3 font-semibold text-brand-navy">Consultoría Global S.L.</td>
+                                    <td class="py-3">Implantación ISO 27001</td>
+                                    <td class="py-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-semibold">100% Al día</span></td>
+                                    <td class="py-3 font-bold">450 € / mes</td>
+                                    <td class="py-3"><button class="text-brand-orange hover:underline font-bold">Ver expediente</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 font-semibold text-brand-navy">Transportes Norte C.B.</td>
+                                    <td class="py-3">Mantenimiento ISO 9001</td>
+                                    <td class="py-3"><span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-semibold">1 Doc Pendiente</span></td>
+                                    <td class="py-3 font-bold">300 € / mes</td>
+                                    <td class="py-3"><button class="text-brand-orange hover:underline font-bold">Reclamar papel</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 font-semibold text-brand-navy">Industrias Metalúrgicas</td>
+                                    <td class="py-3">Auditoría Ambiental 14001</td>
+                                    <td class="py-3"><span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-semibold">En revisión</span></td>
+                                    <td class="py-3 font-bold">600 € / mes</td>
+                                    <td class="py-3"><button class="text-brand-orange hover:underline font-bold">Revisar PDF</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 3: AUTOMATIZACIONES E IA -->
+                <div id="content-ai" class="tab-content hidden space-y-6">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-4 border-b border-brand-border">
+                        <div>
+                            <span class="bg-purple-100 text-purple-700 text-xs font-bold px-3 py-1 rounded-full uppercase">Módulo IA Integrado</span>
+                            <h3 class="font-heading text-2xl font-bold text-brand-navy mt-1">Escáner de Documentos & Asistente Inteligente</h3>
+                            <p class="text-brand-slate text-sm">Validación automática de facturas y normativas sin intervención humana.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-5 rounded-xl border border-brand-border space-y-3">
+                            <div class="flex items-center gap-2 text-purple-600 font-bold text-sm">
+                                <i data-lucide="bot" class="w-5 h-5"></i>
+                                <span>Lectura OCR + IA de Documentos</span>
+                            </div>
+                            <p class="text-xs text-slate-600">Cuando tu cliente sube un certificado o factura, la IA extrae automáticamente la fecha de caducidad, el importe y el CIF.</p>
+                            <div class="bg-slate-900 text-emerald-400 p-3 rounded-lg text-xs font-mono">
+                                > Documento analizado: Factura_Q3.pdf<br>
+                                > Importe detectado: 1.250,00€ (OK)<br>
+                                > Vencimiento: 30/11/2026 (Registrado)
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-xl border border-brand-border space-y-3">
+                            <div class="flex items-center gap-2 text-purple-600 font-bold text-sm">
+                                <i data-lucide="message-square" class="w-5 h-5"></i>
+                                <span>Asistente de Dudas para Clientes</span>
+                            </div>
+                            <p class="text-xs text-slate-600">Tus clientes pueden preguntar al asistente interactivo cómo rellenar cualquier formulario o requisito de su norma.</p>
+                            <div class="bg-purple-50 p-3 rounded-lg border border-purple-100 text-xs text-purple-900">
+                                <strong>Cliente:</strong> "¿Qué documento debo subir para el registro de prevención?"<br>
+                                <strong>IA Kódigo:</strong> "Debes adjuntar el Anexo III firmado por el responsable técnico antes del viernes."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= SERVICES GRID ================= -->
+    <section id="servicios" class="py-20 lg:py-28 bg-brand-bg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-brand-orange font-semibold text-sm uppercase tracking-wider">Nuestros Servicios</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-brand-navy">
+                    Soluciones tecnológicas diseñadas para impulsar tu negocio
+                </h2>
+                <p class="text-brand-slate text-base sm:text-lg">
+                    Desarrollamos herramientas a medida para eliminar tareas manuales y dar un salto de profesionalidad.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-14">
+                
+                <!-- Service 1 -->
+                <div class="bg-white p-8 rounded-2xl border border-brand-border shadow-sm hover:shadow-xl transition-all hover:-translate-y-1 space-y-4 group">
+                    <div class="w-12 h-12 rounded-xl bg-orange-100 text-brand-orange flex items-center justify-center font-bold group-hover:scale-110 transition-transform">
+                        <i data-lucide="users" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-brand-navy">Portales de Clientes</h3>
+                    <p class="text-brand-slate text-sm leading-relaxed">
+                        Extranets privadas para que tus clientes accedan a sus facturas pendientes, papeleo por entregar y estado de trámites las 24/7.
+                    </p>
+                    <ul class="text-xs text-slate-500 space-y-1.5 pt-2 border-t border-slate-100">
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-orange"></i> Descarga de facturas PDF</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-brand-orange"></i> Subida segura de documentos</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white p-8 rounded-2xl border border-brand-border shadow-sm hover:shadow-xl transition-all hover:-translate-y-1 space-y-4 group">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold group-hover:scale-110 transition-transform">
+                        <i data-lucide="database" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-brand-navy">CRM / ERP A Medida</h3>
+                    <p class="text-brand-slate text-sm leading-relaxed">
+                        Sistemas de gestión interna diseñados exactamente según la operativa de tu empresa. Sustituye hojas de cálculo caóticas.
+                    </p>
+                    <ul class="text-xs text-slate-500 space-y-1.5 pt-2 border-t border-slate-100">
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-blue-600"></i> Control de cobros y estados</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-blue-600"></i> Asignación de tareas a equipo</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white p-8 rounded-2xl border border-brand-border shadow-sm hover:shadow-xl transition-all hover:-translate-y-1 space-y-4 group">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold group-hover:scale-110 transition-transform">
+                        <i data-lucide="globe" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-brand-navy">Desarrollo Web & SaaS</h3>
+                    <p class="text-brand-slate text-sm leading-relaxed">
+                        Páginas web corporativas ultrarrápidas, plataformas web y aplicaciones SaaS orientadas a captar clientes y posicionar tu marca.
+                    </p>
+                    <ul class="text-xs text-slate-500 space-y-1.5 pt-2 border-t border-slate-100">
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Diseño moderno e interactivo</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-600"></i> Optimizado para conversión</li>
+                    </ul>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="bg-white p-8 rounded-2xl border border-brand-border shadow-sm hover:shadow-xl transition-all hover:-translate-y-1 space-y-4 group">
+                    <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-bold group-hover:scale-110 transition-transform">
+                        <i data-lucide="cpu" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-brand-navy">Integración de IA</h3>
+                    <p class="text-brand-slate text-sm leading-relaxed">
+                        Implementamos algoritmos inteligentes para lectura automática de expedientes, clasificación de mails y atención automatizada.
+                    </p>
+                    <ul class="text-xs text-slate-500 space-y-1.5 pt-2 border-t border-slate-100">
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-600"></i> Escáner inteligente OCR</li>
+                        <li class="flex items-center gap-1.5"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-600"></i> Asistentes personalizados</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= METHODOLOGY SECTION ================= -->
+    <section id="metodologia" class="py-20 lg:py-28 bg-white border-y border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-brand-orange font-semibold text-sm uppercase tracking-wider">Metodología de Trabajo</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-brand-navy">
+                    De la idea al software funcionando en 4 pasos
+                </h2>
+                <p class="text-brand-slate text-base sm:text-lg">
+                    Sin sorpresas ni complicaciones. Un proceso transparente enfocado en entregar valor desde la primera semana.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16 relative">
+                
+                <!-- Step 1 -->
+                <div class="relative bg-brand-bg p-6 rounded-2xl border border-brand-border space-y-3">
+                    <span class="text-4xl font-extrabold font-heading text-brand-orange/30">01</span>
+                    <h4 class="font-heading font-bold text-lg text-brand-navy">Análisis & Diagnóstico</h4>
+                    <p class="text-xs text-brand-slate leading-relaxed">
+                        Estudiamos tus cuellos de botella actuales, cómo gestionas el papeleo y qué datos necesitan ver tus clientes.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative bg-brand-bg p-6 rounded-2xl border border-brand-border space-y-3">
+                    <span class="text-4xl font-extrabold font-heading text-brand-orange/30">02</span>
+                    <h4 class="font-heading font-bold text-lg text-brand-navy">Prototipado Rápido</h4>
+                    <p class="text-xs text-brand-slate leading-relaxed">
+                        Diseñamos las pantallas interactivas antes de escribir una sola línea de código para asegurar que sea 100% intuitivo.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative bg-brand-bg p-6 rounded-2xl border border-brand-border space-y-3">
+                    <span class="text-4xl font-extrabold font-heading text-brand-orange/30">03</span>
+                    <h4 class="font-heading font-bold text-lg text-brand-navy">Desarrollo e Integración</h4>
+                    <p class="text-xs text-brand-slate leading-relaxed">
+                        Construimos la plataforma con tecnologías modernas, rápidas y seguras, conectando tus bases de datos actuales.
+                    </p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative bg-brand-bg p-6 rounded-2xl border border-brand-border space-y-3">
+                    <span class="text-4xl font-extrabold font-heading text-brand-orange/30">04</span>
+                    <h4 class="font-heading font-bold text-lg text-brand-navy">Despliegue & Soporte</h4>
+                    <p class="text-xs text-brand-slate leading-relaxed">
+                        Lanzamos tu sistema, formamos a tu equipo y nos encargamos del mantenimiento continuo e infraestructura.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= CALCULATOR WIDGET ================= -->
+    <section id="calculadora" class="py-20 lg:py-28 bg-brand-navy text-white relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            
+            <div class="text-center space-y-4 max-w-2xl mx-auto">
+                <span class="text-brand-orange font-semibold text-sm uppercase tracking-wider">Calculadora de Impacto</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-extrabold">
+                    Calcula cuánto tiempo y dinero ahorrarás con Kódigo Labs
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base">
+                    Ajusta los parámetros para ver el impacto estimado de automatizar tu portal de clientes y CRM.
+                </p>
+            </div>
+
+            <div class="mt-12 bg-slate-900 border border-slate-700/80 rounded-3xl p-6 sm:p-10 shadow-2xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                
+                <!-- Calculator Controls -->
+                <div class="md:col-span-7 space-y-6">
+                    
+                    <!-- Slider 1: Clients -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-300 font-medium">Número de Clientes Activos:</span>
+                            <span id="clients-val" class="font-bold text-brand-orange text-base">150 clientes</span>
+                        </div>
+                        <input type="range" id="clients-range" min="20" max="500" value="150" step="10" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-orange">
+                    </div>
+
+                    <!-- Slider 2: Hours per week -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-300 font-medium">Horas semanales en llamadas/papeleo por cliente:</span>
+                            <span id="hours-val" class="font-bold text-brand-orange text-base">12 horas / semana</span>
+                        </div>
+                        <input type="range" id="hours-range" min="2" max="40" value="12" step="1" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-orange">
+                    </div>
+
+                    <p class="text-[11px] text-slate-400 italic">
+                        *Estimación basada en un coste medio operativo de 22 €/hora en gestión administrativa.
+                    </p>
+                </div>
+
+                <!-- Calculator Output Card -->
+                <div class="md:col-span-5 bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-slate-700/60 text-center space-y-4">
+                    <p class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Ahorro Estimado Mensual</p>
+                    
+                    <div>
+                        <span id="saved-hours" class="font-heading text-4xl sm:text-5xl font-extrabold text-white">38 hrs</span>
+                        <p class="text-xs text-slate-400 mt-1">Horas recuperadas al mes</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-700">
+                        <span id="saved-money" class="font-heading text-3xl font-bold text-emerald-400">836 € / mes</span>
+                        <p class="text-xs text-slate-400 mt-1">Ahorro operativo directo</p>
+                    </div>
+
+                    <a href="#contacto" class="block w-full bg-brand-orange hover:bg-brand-orange-hover text-white text-xs font-bold py-3 rounded-xl transition-all shadow-md">
+                        Empezar a Ahorrar Ahora
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ================= CONTACT / LEAD CAPTURE SECTION ================= -->
+    <section id="contacto" class="py-20 lg:py-28 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Contact Info -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-brand-orange font-semibold text-sm uppercase tracking-wider">Hablemos de tu Proyecto</span>
+                    <h2 class="font-heading text-3xl sm:text-4xl font-extrabold text-brand-navy">
+                        ¿Listo para dar el siguiente paso con Kódigo Labs?
+                    </h2>
+                    <p class="text-brand-slate text-base leading-relaxed">
+                        Cuéntanos brevemente qué necesita tu empresa. Analizaremos tu caso sin compromiso y te mostraremos un prototipo adaptado a tu negocio.
+                    </p>
+
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-orange-100 text-brand-orange rounded-xl">
+                                <i data-lucide="mail" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold text-slate-400 uppercase">Email Directo</p>
+                                <p class="text-brand-navy font-bold">contacto@kodigolabs.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-blue-100 text-blue-600 rounded-xl">
+                                <i data-lucide="shield-check" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs font-semibold text-slate-400 uppercase">Garantía de Servicio</p>
+                                <p class="text-brand-navy font-bold">Prototipo inicial sin coste ni compromiso</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="lg:col-span-7 bg-brand-bg border border-brand-border p-6 sm:p-10 rounded-3xl shadow-lg">
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-semibold text-brand-navy uppercase mb-1">Nombre Completo *</label>
+                                <input type="text" required placeholder="Tu nombre" class="w-full px-4 py-3 rounded-xl border border-brand-border bg-white text-sm focus:outline-none focus:border-brand-orange transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-brand-navy uppercase mb-1">Email Profesional *</label>
+                                <input type="email" required placeholder="ejemplo@empresa.com" class="w-full px-4 py-3 rounded-xl border border-brand-border bg-white text-sm focus:outline-none focus:border-brand-orange transition-colors">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-semibold text-brand-navy uppercase mb-1">Nombre de tu Empresa</label>
+                                <input type="text" placeholder="Ej. Consultora ISO S.L." class="w-full px-4 py-3 rounded-xl border border-brand-border bg-white text-sm focus:outline-none focus:border-brand-orange transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-brand-navy uppercase mb-1">¿Qué necesitas solucionar? *</label>
+                                <select required class="w-full px-4 py-3 rounded-xl border border-brand-border bg-white text-sm focus:outline-none focus:border-brand-orange transition-colors">
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="portal">Portal de Clientes (Facturas/Papeleo)</option>
+                                    <option value="crm">CRM / ERP A Medida</option>
+                                    <option value="web">Página Web Corporativa / SaaS</option>
+                                    <option value="ia">Automatización e IA</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-brand-navy uppercase mb-1">Mensaje o detalles del proyecto</label>
+                            <textarea rows="4" placeholder="Explícanos brevemente qué procesos te gustaría optimizar..." class="w-full px-4 py-3 rounded-xl border border-brand-border bg-white text-sm focus:outline-none focus:border-brand-orange transition-colors"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-orange hover:bg-brand-orange-hover text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-orange-500/25 flex items-center justify-center gap-2 text-base">
+                            <span>Solicitar Asesoría Gratuita</span>
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </button>
+
+                    </form>
+
+                    <!-- Success Message Box -->
+                    <div id="form-success" class="hidden p-6 bg-emerald-50 border border-emerald-200 rounded-2xl text-center space-y-3">
+                        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center font-bold">
+                            <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-xl text-emerald-900">¡Mensaje Recibido!</h4>
+                        <p class="text-xs text-emerald-700">
+                            Gracias por contactar con **Kódigo Labs**. Nos pondremos en contacto contigo en menos de 24 horas para revisar tu proyecto.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-brand-navy text-white border-t border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-brand-orange flex items-center justify-center text-white font-bold">
+                        <i data-lucide="code-2" class="w-5 h-5"></i>
+                    </div>
+                    <span class="font-heading font-extrabold text-xl text-white">
+                        Kódigo<span class="text-brand-orange">.</span>Labs
+                    </span>
+                </a>
+
+                <!-- Copyright -->
+                <p class="text-xs text-slate-400">
+                    &copy; 2026 Kódigo Labs. Todos los derechos reservados. Software a medida para empresas.
+                </p>
+
+                <!-- Socials / Links -->
+                <div class="flex items-center space-x-4 text-slate-400 text-xs">
+                    <a href="#servicios" class="hover:text-white transition-colors">Servicios</a>
+                    <a href="#contacto" class="hover:text-white transition-colors">Contacto</a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Interactions -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Tab Switcher Logic
+        function switchTab(tabId) {
+            // Hide all contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Reset tab button styles
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-brand-orange', 'bg-orange-50', 'text-brand-orange', 'font-bold');
+                btn.classList.add('border-slate-200', 'bg-white', 'text-brand-slate', 'font-semibold');
+            });
+
+            // Show selected content
+            const activeContent = document.getElementById('content-' + tabId);
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+            }
+
+            // Highlight selected tab button
+            const activeTab = document.getElementById('tab-' + tabId);
+            if (activeTab) {
+                activeTab.classList.add('active', 'border-brand-orange', 'bg-orange-50', 'text-brand-orange', 'font-bold');
+                activeTab.classList.remove('border-slate-200', 'bg-white', 'text-brand-slate', 'font-semibold');
+            }
+        }
+
+        // Calculator Interactive Logic
+        const clientsRange = document.getElementById('clients-range');
+        const hoursRange = document.getElementById('hours-range');
+        const clientsVal = document.getElementById('clients-val');
+        const hoursVal = document.getElementById('hours-val');
+        const savedHours = document.getElementById('saved-hours');
+        const savedMoney = document.getElementById('saved-money');
+
+        function updateCalculator() {
+            const clients = parseInt(clientsRange.value);
+            const hoursPerWeek = parseInt(hoursRange.value);
+
+            clientsVal.textContent = clients + ' clientes';
+            hoursVal.textContent = hoursPerWeek + ' horas / semana';
+
+            // Calculation logic
+            const totalHoursSavedMonth = Math.round((hoursPerWeek * 0.65) * 4); // 65% savings
+            const moneySavedMonth = Math.round(totalHoursSavedMonth * 22); // 22 €/hr rate
+
+            savedHours.textContent = totalHoursSavedMonth + ' hrs';
+            savedMoney.textContent = moneySavedMonth.toLocaleString('es-ES') + ' € / mes';
+        }
+
+        clientsRange.addEventListener('input', updateCalculator);
+        hoursRange.addEventListener('input', updateCalculator);
+
+        // Contact Form Handling
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            const form = document.getElementById('contact-form');
+            const successMsg = document.getElementById('form-success');
+
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
