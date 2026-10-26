@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 600" fill="none" role="img" aria-labelledby="title">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 700" fill="none" role="img" aria-labelledby="title">
   <title id="title">KÓDIGO.LABS</title>
-  <text x="64" y="385" font-family="Outfit, Inter, Arial, sans-serif" font-size="280" font-weight="800" letter-spacing="-12">
-    <tspan fill="#F8FAFC" fill-opacity="0.2" stroke="#F8FAFC" stroke-opacity="0.35" stroke-width="2">KÓDIGO</tspan><tspan fill="#F97316" fill-opacity="0.32" stroke="#F97316" stroke-opacity="0.5" stroke-width="2">.</tspan><tspan fill="#F8FAFC" fill-opacity="0.2" stroke="#F8FAFC" stroke-opacity="0.35" stroke-width="2">LABS</tspan>
-  </text>
+  <g font-family="Outfit, Inter, Arial, sans-serif" font-size="230" font-weight="800" letter-spacing="2" text-anchor="middle">
+    <text x="900" y="290" fill="#F8FAFC" fill-opacity="0.2" stroke="#F8FAFC" stroke-opacity="0.35" stroke-width="2">KÓDIGO</text>
+    <text x="900" y="565" fill="#F97316" fill-opacity="0.24" stroke="#F97316" stroke-opacity="0.42" stroke-width="2">LABS</text>
+  </g>
 </svg>
