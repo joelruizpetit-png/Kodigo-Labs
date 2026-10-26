@@ -728,6 +728,8 @@
                             <textarea rows="4" placeholder="Explícanos brevemente qué procesos te gustaría optimizar..." class="w-full px-4 py-3 rounded-xl border border-brand-border bg-white text-sm focus:outline-none focus:border-brand-orange transition-colors"></textarea>
                         </div>
 
+                        <p class="text-xs text-brand-slate">Este formulario es una demostración y todavía no envía tus datos. Para contactar, escribe a <a class="text-brand-orange underline" href="mailto:contacto@kodigolabs.com">contacto@kodigolabs.com</a>. <a class="text-brand-orange underline" href="#privacidad">Política de privacidad</a>.</p>
+
                         <button type="submit" class="w-full bg-brand-orange hover:bg-brand-orange-hover text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-orange-500/25 flex items-center justify-center gap-2 text-base">
                             <span>Solicitar Asesoría Gratuita</span>
                             <i data-lucide="send" class="w-5 h-5"></i>
@@ -740,9 +742,9 @@
                         <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center font-bold">
                             <i data-lucide="check-circle-2" class="w-6 h-6"></i>
                         </div>
-                        <h4 class="font-heading font-bold text-xl text-emerald-900">¡Mensaje Recibido!</h4>
+                        <h4 class="font-heading font-bold text-xl text-emerald-900">Formulario de demostración</h4>
                         <p class="text-xs text-emerald-700">
-                            Gracias por contactar con **Kódigo Labs**. Nos pondremos en contacto contigo en menos de 24 horas para revisar tu proyecto.
+                            Este formulario no envía el mensaje. Para contactar con Kódigo Labs, escribe a contacto@kodigolabs.com.
                         </p>
                     </div>
 
@@ -772,15 +774,69 @@
                     &copy; 2026 Kódigo Labs. Todos los derechos reservados. Software a medida para empresas.
                 </p>
 
-                <!-- Socials / Links -->
-                <div class="flex items-center space-x-4 text-slate-400 text-xs">
+                <!-- Legal links -->
+                <nav aria-label="Información legal" class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-slate-400 text-xs">
                     <a href="#servicios" class="hover:text-white transition-colors">Servicios</a>
                     <a href="#contacto" class="hover:text-white transition-colors">Contacto</a>
-                </div>
+                    <a href="#aviso-legal" class="hover:text-white transition-colors">Aviso legal</a>
+                    <a href="#privacidad" class="hover:text-white transition-colors">Privacidad</a>
+                    <a href="#cookies" class="hover:text-white transition-colors">Cookies</a>
+                </nav>
 
             </div>
         </div>
     </footer>
+
+    <!-- ================= LEGAL INFORMATION ================= -->
+    <section class="bg-white border-t border-brand-border" aria-label="Información legal y privacidad">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-14 text-sm text-slate-700 leading-relaxed">
+            <div class="bg-blue-50 border border-blue-200 rounded-2xl p-5 text-blue-950">
+                <p class="font-bold">Nota sobre la configuración de la web</p>
+                <p class="mt-2">Los datos del titular facilitados para esta página ya están incluidos abajo. Antes de considerar definitivas las políticas, comprueba el proveedor de alojamiento y las cookies que genera la web una vez desplegada; la configuración puede variar según esos servicios.</p>
+            </div>
+
+            <article id="aviso-legal" class="scroll-mt-24 space-y-4">
+                <h2 class="font-heading text-3xl font-extrabold text-brand-navy">Aviso legal</h2>
+                <p><strong>Última actualización:</strong> 26 de octubre de 2026.</p>
+                <h3 class="font-heading text-xl font-bold text-brand-navy">Titular del sitio web</h3>
+                <p>Este sitio web, identificado comercialmente como Kódigo Labs, ofrece información sobre servicios de desarrollo de software y soluciones digitales para empresas.</p>
+                <ul class="list-disc pl-6 space-y-1">
+                    <li><strong>Titular:</strong> Joel Ruiz Petit.</li>
+                    <li><strong>NIF:</strong> 43446085M.</li>
+                    <li><strong>Domicilio:</strong> C/ Nord, 33, 08183 Castellterçol (Barcelona), España.</li>
+                    <li><strong>Datos registrales:</strong> no indicados; completar si procede.</li>
+                    <li><strong>Contacto:</strong> <a class="text-brand-orange underline" href="mailto:contacto@kodigolabs.com">contacto@kodigolabs.com</a>.</li>
+                </ul>
+                <h3 class="font-heading text-xl font-bold text-brand-navy">Condiciones de uso</h3>
+                <p>El acceso al sitio atribuye la condición de usuario e implica el uso responsable de sus contenidos, de conformidad con la ley y con este aviso. El usuario se compromete a no realizar actuaciones que dañen, sobrecarguen o interfieran en el funcionamiento del sitio ni que vulneren derechos de terceros.</p>
+                <p>Los textos, diseños, marcas, código y demás contenidos están protegidos por la normativa aplicable. No se permite su reproducción o explotación fuera de los usos legalmente permitidos sin autorización de sus titulares. Las demostraciones y cifras incluidas en la web son ilustrativas y no constituyen una oferta contractual ni una garantía de resultados.</p>
+                <p>El titular procurará mantener la información actualizada y el sitio disponible, pero no garantiza la ausencia de errores o interrupciones. Los enlaces a servicios de terceros se facilitan por conveniencia; sus contenidos y tratamientos se rigen por las condiciones de dichos terceros.</p>
+                <p>En los términos de la Ley 34/2002 (LSSI-CE), los datos de identificación del prestador deben estar disponibles de forma permanente, fácil, directa y gratuita. Si el titular está inscrito en un registro público, deberá añadir aquí los datos de inscripción que correspondan.</p>
+            </article>
+
+            <article id="privacidad" class="scroll-mt-24 space-y-4">
+                <h2 class="font-heading text-3xl font-extrabold text-brand-navy">Política de privacidad</h2>
+                <p><strong>Última actualización:</strong> 26 de octubre de 2026.</p>
+                <p><strong>Responsable:</strong> Joel Ruiz Petit, titular de Kódigo Labs, con domicilio en C/ Nord, 33, 08183 Castellterçol (Barcelona), España. Correo de contacto: <a class="text-brand-orange underline" href="mailto:contacto@kodigolabs.com">contacto@kodigolabs.com</a>.</p>
+                <h3 class="font-heading text-xl font-bold text-brand-navy">Qué datos se recogen y para qué</h3>
+                <p>El formulario de esta página es actualmente una demostración visual: el código solo muestra un mensaje en el navegador y no transmite ni almacena el nombre, correo, empresa, selección o mensaje introducidos. No envíes información confidencial mediante ese formulario. Si escribes directamente al correo publicado, se tratarán los datos que incluyas para responder a tu consulta y, si procede, preparar los pasos previos que solicites para una posible contratación.</p>
+                <p>La base jurídica para responder a una consulta será la aplicación de medidas precontractuales solicitadas por la persona interesada o, según el caso, el interés legítimo en gestionar y contestar comunicaciones profesionales. Si se inicia una relación contractual, los datos necesarios se tratarán para ejecutarla y cumplir las obligaciones legales aplicables. No se usarán estos datos para enviar publicidad no solicitada.</p>
+                <h3 class="font-heading text-xl font-bold text-brand-navy">Destinatarios, conservación y transferencias</h3>
+                <p>El sitio carga recursos técnicos externos de Google Fonts, Tailwind CSS CDN y unpkg (Lucide). La conexión a esos servicios puede comunicar datos técnicos de la solicitud, como la dirección IP, al proveedor correspondiente. No se ha identificado en el código una herramienta de analítica ni publicidad. El proveedor de alojamiento y sus condiciones deben confirmarse por el titular; por tanto, no es posible concretar aquí destinatarios adicionales ni ubicaciones de tratamiento.</p>
+                <p>Los mensajes recibidos por correo se conservarán durante el tiempo necesario para responder y gestionar la relación, y posteriormente durante los plazos exigidos por ley o necesarios para atender posibles reclamaciones. No se aplican decisiones automatizadas ni elaboración de perfiles en este sitio.</p>
+                <h3 class="font-heading text-xl font-bold text-brand-navy">Tus derechos</h3>
+                <p>Puedes solicitar el acceso, rectificación, supresión, oposición, limitación del tratamiento y, cuando proceda, portabilidad de tus datos escribiendo a <a class="text-brand-orange underline" href="mailto:contacto@kodigolabs.com">contacto@kodigolabs.com</a> e indicando el derecho que deseas ejercer. Podremos pedir información razonable para verificar tu identidad. También puedes presentar una reclamación ante la Agencia Española de Protección de Datos (<a class="text-brand-orange underline" href="https://www.aepd.es/" target="_blank" rel="noopener noreferrer">aepd.es</a>). La información anterior debe revisarse cuando se conecte el formulario a un sistema real o se incorporen nuevas herramientas.</p>
+            </article>
+
+            <article id="cookies" class="scroll-mt-24 space-y-4">
+                <h2 class="font-heading text-3xl font-extrabold text-brand-navy">Política de cookies</h2>
+                <p><strong>Última actualización:</strong> 26 de octubre de 2026.</p>
+                <p>Según el código disponible en esta página, no se ha configurado el uso intencionado de cookies propias, analíticas o publicitarias, ni hay una herramienta de seguimiento. Por ese motivo, la página no muestra actualmente un panel de consentimiento.</p>
+                <p>La página sí solicita recursos a servicios externos (Google Fonts, Tailwind CSS CDN y unpkg/Lucide). Esas conexiones pueden tratar datos técnicos y cada proveedor puede aplicar sus propias tecnologías y políticas. La configuración puede variar según el alojamiento, el navegador y futuras modificaciones del sitio. El titular debe comprobar qué cookies o almacenamiento se genera realmente en la web ya desplegada y actualizar esta política; si se añaden cookies no necesarias, deberá implantarse un mecanismo válido para informar y obtener el consentimiento antes de activarlas, con opción de rechazarlas.</p>
+                <p>Puedes gestionar o eliminar cookies desde la configuración de tu navegador. Bloquear recursos de terceros también puede afectar a la presentación visual del sitio.</p>
+            </article>
+        </div>
+    </section>
 
     <!-- JavaScript Interactions -->
     <script>
