@@ -158,6 +158,10 @@
         (() => {
             const SUPABASE_URL = 'https://vxaowgytpigfppqnmjjx.supabase.co';
             const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_WWiB6n-ljdRJ-RhA6491xA_tTKCRHbO';
+            const CLIENT_NAMES = {
+                1: 'Logística del Norte S.L.',
+                2: 'Talleres Metalúrgicos Sur',
+            };
             const savedClientId = Number(sessionStorage.getItem('kodigolabs_cliente_id'));
             let selectedClientId = [1, 2].includes(savedClientId) ? savedClientId : null;
             const $ = (id) => document.getElementById(id);
@@ -239,8 +243,8 @@
                 if (/pendient|revis|vencid|rechaz/.test(text)) return 'bg-amber-50 text-amber-700';
                 return 'bg-slate-100 text-slate-600';
             }
-            function renderClient(row) {
-                const name = valueOf(row, ['nombre', 'razon_social', 'empresa', 'name'], 'Logística del Norte S.L.');
+            function renderClient(row, clientId) {
+                const name = CLIENT_NAMES[clientId];
                 $('client-name').textContent = safeText(name);
                 $('client-details').replaceChildren();
                 const fields = [
@@ -311,7 +315,8 @@
                     if (customerError) throw customerError;
                     if (requestId !== clientRequestId) return;
                     if (!customer) throw new Error(`No se encontró el cliente de demostración con ID ${clientId}.`);
-                    renderClient(customer);
+                    if (String(customer.id) !== String(clientId)) throw new Error('El cliente devuelto no coincide con la empresa seleccionada.');
+                    renderClient(customer, clientId);
                     const [invoices, documents] = await Promise.all([fetchRelated('facturas', clientId), fetchRelated('documentos_iso', clientId)]);
                     if (requestId !== clientRequestId) return;
                     renderInvoices(invoices); renderDocuments(documents);
