@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0F172A">
+    <meta name="description" content="Portal de demostración de Kódigo Labs para clientes y consultoras ISO.">
+    <title>Portal ISO | Kódigo Labs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { brand: { navy: '#0F172A', orange: '#F97316', paper: '#F8FAFC' } } } }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { background: #F8FAFC; }
+        .surface { box-shadow: 0 18px 50px rgba(15, 23, 42, .07); }
+        .loader { width: 18px; height: 18px; border: 2px solid #cbd5e1; border-top-color: #F97316; border-radius: 50%; animation: spin .7s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800 antialiased">
+    <header class="bg-brand-navy text-white">
+        <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-5 sm:px-8">
+            <a href="/" class="flex items-center gap-3" aria-label="Kódigo Labs, volver al inicio">
+                <span class="grid h-10 w-10 place-items-center rounded-xl bg-brand-orange text-lg font-black">K</span>
+                <span class="text-lg font-extrabold tracking-tight">KÓDIGO <span class="text-brand-orange">LABS</span></span>
+            </a>
+            <a href="/" class="text-sm font-semibold text-slate-300 transition hover:text-white">Volver a la web</a>
+        </div>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12">
+        <section class="mb-8">
+            <p class="mb-2 text-sm font-bold uppercase tracking-[.16em] text-brand-orange">Área privada · Demo</p>
+            <h1 class="text-3xl font-black tracking-tight text-brand-navy sm:text-4xl">Portal de gestión ISO</h1>
+            <p class="mt-3 max-w-2xl text-slate-600">Consulta facturas y documentación de forma clara desde un único espacio.</p>
+        </section>
+
+        <nav class="mb-8 flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-2 sm:flex-row" aria-label="Selector de área">
+            <button id="client-role" type="button" class="role-button rounded-xl px-5 py-3 text-left text-sm font-bold transition sm:flex-1" aria-pressed="true">Portal de Cliente (Empresa ISO)</button>
+            <button id="admin-role" type="button" class="role-button rounded-xl px-5 py-3 text-left text-sm font-bold transition sm:flex-1" aria-pressed="false">Panel Administrador (Consultora)</button>
+        </nav>
+
+        <div id="notice" class="mb-6 hidden rounded-xl border px-4 py-3 text-sm" role="status" aria-live="polite"></div>
+
+        <section id="client-panel" aria-labelledby="client-heading">
+            <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                    <p class="text-sm font-semibold text-slate-500">Bienvenido al portal</p>
+                    <h2 id="client-heading" class="text-2xl font-extrabold text-brand-navy">Tu empresa</h2>
+                </div>
+                <span id="connection-state" class="inline-flex items-center gap-2 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-bold text-slate-600"><span class="h-2 w-2 rounded-full bg-slate-400"></span>Conectando</span>
+            </div>
+
+            <div class="grid gap-5 lg:grid-cols-3">
+                <article class="surface rounded-2xl border border-slate-200 bg-white p-6 lg:col-span-1">
+                    <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-orange-50 text-brand-orange">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-6 w-6"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4M9 9v.01M9 12v.01M9 15v.01M9 18v.01M15 14v.01M15 17v.01" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <p class="text-sm font-semibold text-slate-500">Empresa</p>
+                    <h3 id="client-name" class="mt-1 text-xl font-extrabold text-brand-navy">Logística del Norte S.L.</h3>
+                    <div id="client-details" class="mt-4 space-y-2 text-sm text-slate-600"></div>
+                    <p id="client-load" class="mt-5 flex items-center gap-2 text-xs text-slate-500"><span class="loader"></span>Cargando datos del cliente…</p>
+                </article>
+
+                <article class="surface rounded-2xl border border-slate-200 bg-white p-6 lg:col-span-2">
+                    <div class="mb-5 flex items-center justify-between gap-4">
+                        <div><p class="text-sm font-semibold text-slate-500">Estado económico</p><h3 class="text-xl font-extrabold text-brand-navy">Facturas</h3></div>
+                        <span id="invoice-count" class="rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-brand-orange">—</span>
+                    </div>
+                    <div id="invoice-list" class="space-y-3"><div class="flex items-center gap-2 text-sm text-slate-500"><span class="loader"></span>Cargando facturas…</div></div>
+                </article>
+
+                <article class="surface rounded-2xl border border-slate-200 bg-white p-6 lg:col-span-3">
+                    <div class="mb-5 flex items-center justify-between gap-4">
+                        <div><p class="text-sm font-semibold text-slate-500">Calidad y cumplimiento</p><h3 class="text-xl font-extrabold text-brand-navy">Documentación ISO</h3></div>
+                        <span id="document-count" class="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">—</span>
+                    </div>
+                    <div id="document-list" class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"><div class="flex items-center gap-2 text-sm text-slate-500"><span class="loader"></span>Cargando documentos…</div></div>
+                </article>
+            </div>
+            <p class="mt-6 text-center text-xs text-slate-400">Portal de demostración de Kódigo Labs</p>
+        </section>
+
+        <section id="admin-panel" class="hidden" aria-labelledby="admin-heading">
+            <div class="mb-6">
+                <p class="text-sm font-semibold text-slate-500">Área de gestión</p>
+                <h2 id="admin-heading" class="text-2xl font-extrabold text-brand-navy">Panel Administrador</h2>
+            </div>
+            <div id="admin-login" class="surface mx-auto max-w-xl rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+                <div class="mb-6">
+                    <div class="mb-4 grid h-12 w-12 place-items-center rounded-xl bg-orange-50 text-brand-orange">
+                        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-6 w-6"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2" stroke-linecap="round"/></svg>
+                    </div>
+                    <h3 class="text-xl font-extrabold text-brand-navy">Acceso de consultora</h3>
+                    <p class="mt-2 text-sm leading-6 text-slate-600">Inicia sesión con un usuario autorizado de Supabase. Las facturas y documentos no se consultan hasta autenticarte.</p>
+                </div>
+                <form id="login-form" class="space-y-4">
+                    <label class="block text-sm font-semibold text-slate-700">Correo electrónico<input id="login-email" type="email" autocomplete="username" required class="mt-1.5 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-brand-orange focus:ring-2 focus:ring-orange-100"></label>
+                    <label class="block text-sm font-semibold text-slate-700">Contraseña<input id="login-password" type="password" autocomplete="current-password" required class="mt-1.5 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-brand-orange focus:ring-2 focus:ring-orange-100"></label>
+                    <button id="login-submit" class="w-full rounded-xl bg-brand-orange px-5 py-3 font-bold text-white transition hover:bg-orange-600" type="submit">Iniciar sesión</button>
+                </form>
+            </div>
+            <div id="admin-dashboard" class="hidden">
+                <div class="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-5">
+                    <div><p class="text-sm text-slate-500">Sesión activa</p><p id="admin-user" class="font-bold text-brand-navy"></p></div>
+                    <button id="logout-button" type="button" class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50">Cerrar sesión</button>
+                </div>
+                <div class="grid gap-5 md:grid-cols-2">
+                    <article class="surface rounded-2xl border border-slate-200 bg-white p-6"><p class="text-sm font-semibold text-slate-500">Registros accesibles</p><h3 class="mt-1 text-xl font-extrabold text-brand-navy">Facturas</h3><p id="admin-invoices" class="mt-4 text-3xl font-black text-brand-orange">—</p></article>
+                    <article class="surface rounded-2xl border border-slate-200 bg-white p-6"><p class="text-sm font-semibold text-slate-500">Registros accesibles</p><h3 class="mt-1 text-xl font-extrabold text-brand-navy">Documentos ISO</h3><p id="admin-documents" class="mt-4 text-3xl font-black text-brand-orange">—</p></article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="mt-12 border-t border-slate-200 bg-white">
+        <div class="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+            <span>© <span id="year"></span> Kódigo Labs</span><span>Acceso de demostración · Datos sujetos a permisos de Supabase</span>
+        </div>
+    </footer>
+
+    <script>
+        (() => {
+            const SUPABASE_URL = 'https://vxaowgytpigfppqnmjjx.supabase.co';
+            const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_WWiB6n-ljdRJ-RhA6491xA_tTKCRHbO';
+            const CLIENT_ID = 1;
+            const $ = (id) => document.getElementById(id);
+            const clientPanel = $('client-panel');
+            const adminPanel = $('admin-panel');
+            const notice = $('notice');
+            let db = null;
+
+            $('year').textContent = new Date().getFullYear();
+
+            function showNotice(message, type = 'error') {
+                notice.textContent = message;
+                notice.className = `mb-6 rounded-xl border px-4 py-3 text-sm ${type === 'success' ? 'border-emerald-200 bg-emerald-50 text-emerald-800' : 'border-rose-200 bg-rose-50 text-rose-800'}`;
+                notice.classList.remove('hidden');
+            }
+            function clearNotice() { notice.classList.add('hidden'); notice.textContent = ''; }
+            function setRole(role) {
+                const isClient = role === 'client';
+                clientPanel.classList.toggle('hidden', !isClient);
+                adminPanel.classList.toggle('hidden', isClient);
+                document.querySelectorAll('.role-button').forEach((button) => {
+                    const selected = button.id === (isClient ? 'client-role' : 'admin-role');
+                    button.setAttribute('aria-pressed', String(selected));
+                    button.className = `role-button rounded-xl px-5 py-3 text-left text-sm font-bold transition sm:flex-1 ${selected ? 'bg-brand-navy text-white shadow-sm' : 'text-slate-600 hover:bg-slate-50'}`;
+                });
+                clearNotice();
+                if (!isClient) syncAdminSession();
+            }
+            $('client-role').addEventListener('click', () => setRole('client'));
+            $('admin-role').addEventListener('click', () => setRole('admin'));
+
+            function valueOf(row, keys, fallback = '') {
+                for (const key of keys) if (row && row[key] != null && row[key] !== '') return row[key];
+                return fallback;
+            }
+            function safeText(value) { return String(value ?? '').replace(/[<>]/g, ''); }
+            function formatMoney(value) {
+                if (value === '' || value == null || !Number.isFinite(Number(value))) return value || '—';
+                return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(Number(value));
+            }
+            function formatDate(value) {
+                if (!value) return '';
+                const date = new Date(value);
+                return Number.isNaN(date.getTime()) ? String(value) : new Intl.DateTimeFormat('es-ES').format(date);
+            }
+            function statusClasses(status) {
+                const text = String(status || '').toLowerCase();
+                if (/pagad|aprobad|complet|vigente|valid/.test(text)) return 'bg-emerald-50 text-emerald-700';
+                if (/pendient|revis|vencid|rechaz/.test(text)) return 'bg-amber-50 text-amber-700';
+                return 'bg-slate-100 text-slate-600';
+            }
+            function renderClient(row) {
+                const name = valueOf(row, ['nombre', 'razon_social', 'empresa', 'name'], 'Logística del Norte S.L.');
+                $('client-name').textContent = safeText(name);
+                $('client-details').replaceChildren();
+                const fields = [
+                    ['CIF / NIF', ['cif', 'nif', 'identificacion']],
+                    ['Correo', ['email', 'correo', 'contacto_email']],
+                    ['Teléfono', ['telefono', 'phone']],
+                ];
+                fields.forEach(([label, keys]) => {
+                    const value = valueOf(row, keys);
+                    if (!value) return;
+                    const p = document.createElement('p');
+                    p.className = 'flex justify-between gap-3';
+                    const span = document.createElement('span'); span.className = 'text-slate-400'; span.textContent = label;
+                    const strong = document.createElement('strong'); strong.className = 'text-right font-semibold text-slate-700'; strong.textContent = safeText(value);
+                    p.append(span, strong); $('client-details').append(p);
+                });
+                $('client-load').classList.add('hidden');
+            }
+            function emptyState(message) {
+                const p = document.createElement('p'); p.className = 'rounded-xl border border-dashed border-slate-300 p-5 text-sm text-slate-500'; p.textContent = message; return p;
+            }
+            function renderInvoices(rows) {
+                const list = $('invoice-list'); list.replaceChildren();
+                $('invoice-count').textContent = `${rows.length} ${rows.length === 1 ? 'factura' : 'facturas'}`;
+                if (!rows.length) { list.append(emptyState('No hay facturas disponibles para este cliente.')); return; }
+                rows.forEach((row) => {
+                    const item = document.createElement('div'); item.className = 'flex flex-col gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-4 sm:flex-row sm:items-center sm:justify-between';
+                    const left = document.createElement('div');
+                    const title = document.createElement('p'); title.className = 'font-bold text-brand-navy'; title.textContent = safeText(valueOf(row, ['numero', 'numero_factura', 'referencia', 'titulo', 'nombre'], `Factura #${valueOf(row, ['id'], '')}`));
+                    const meta = document.createElement('p'); meta.className = 'mt-1 text-xs text-slate-500'; meta.textContent = formatDate(valueOf(row, ['fecha', 'fecha_emision', 'created_at'], ''));
+                    left.append(title, meta);
+                    const right = document.createElement('div'); right.className = 'flex items-center gap-3';
+                    const amount = document.createElement('strong'); amount.className = 'text-sm text-brand-navy'; amount.textContent = safeText(formatMoney(valueOf(row, ['total', 'importe', 'monto', 'amount'], '')));
+                    const status = valueOf(row, ['estado', 'status'], 'Registrada'); const badge = document.createElement('span'); badge.className = `rounded-full px-2.5 py-1 text-xs font-bold ${statusClasses(status)}`; badge.textContent = safeText(status);
+                    right.append(amount, badge); item.append(left, right); list.append(item);
+                });
+            }
+            function renderDocuments(rows) {
+                const list = $('document-list'); list.replaceChildren();
+                $('document-count').textContent = `${rows.length} ${rows.length === 1 ? 'documento' : 'documentos'}`;
+                if (!rows.length) { list.append(emptyState('No hay documentos ISO disponibles para este cliente.')); return; }
+                rows.forEach((row) => {
+                    const card = document.createElement('article'); card.className = 'flex items-start gap-3 rounded-xl border border-slate-200 p-4';
+                    const icon = document.createElement('span'); icon.className = 'grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-orange-50 text-brand-orange'; icon.textContent = 'ISO';
+                    const content = document.createElement('div'); content.className = 'min-w-0 flex-1';
+                    const title = document.createElement('p'); title.className = 'truncate font-bold text-brand-navy'; title.textContent = safeText(valueOf(row, ['nombre', 'titulo', 'nombre_documento', 'archivo', 'tipo'], `Documento #${valueOf(row, ['id'], '')}`));
+                    const meta = document.createElement('p'); meta.className = 'mt-1 text-xs text-slate-500'; meta.textContent = formatDate(valueOf(row, ['fecha', 'fecha_subida', 'updated_at', 'created_at'], ''));
+                    const statusText = valueOf(row, ['estado', 'status'], 'Registrado'); const status = document.createElement('span'); status.className = `mt-2 inline-flex rounded-full px-2.5 py-1 text-xs font-bold ${statusClasses(statusText)}`; status.textContent = safeText(statusText);
+                    content.append(title, meta, status); card.append(icon, content); list.append(card);
+                });
+            }
+            async function fetchRelated(table) {
+                let lastError;
+                for (const column of ['cliente_id', 'id_cliente', 'client_id']) {
+                    const { data, error } = await db.from(table).select('*').eq(column, CLIENT_ID).limit(100);
+                    if (!error) return data || [];
+                    lastError = error;
+                    if (!/column .* does not exist|could not find .* column/i.test(error.message || '')) break;
+                }
+                throw lastError;
+            }
+            async function loadClientPortal() {
+                const state = $('connection-state');
+                if (!db) {
+                    state.innerHTML = '<span class="h-2 w-2 rounded-full bg-rose-500"></span>Sin conexión';
+                    $('client-load').textContent = 'No se pudo iniciar la conexión con Supabase.';
+                    $('invoice-list').replaceChildren(emptyState('Servicio temporalmente no disponible.'));
+                    $('document-list').replaceChildren(emptyState('Servicio temporalmente no disponible.'));
+                    return;
+                }
+                try {
+                    const { data: customer, error: customerError } = await db.from('clientes').select('*').eq('id', CLIENT_ID).maybeSingle();
+                    if (customerError) throw customerError;
+                    if (!customer) throw new Error('No se encontró el cliente de demostración con ID 1.');
+                    renderClient(customer);
+                    const [invoices, documents] = await Promise.all([fetchRelated('facturas'), fetchRelated('documentos_iso')]);
+                    renderInvoices(invoices); renderDocuments(documents);
+                    state.innerHTML = '<span class="h-2 w-2 rounded-full bg-emerald-500"></span>Conectado';
+                } catch (error) {
+                    state.innerHTML = '<span class="h-2 w-2 rounded-full bg-rose-500"></span>Revisar permisos';
+                    $('client-load').textContent = 'No se pudieron cargar los datos del portal.';
+                    $('invoice-list').replaceChildren(emptyState('No se pudieron cargar las facturas. Comprueba las tablas, columnas y políticas de acceso (RLS) de Supabase.'));
+                    $('document-list').replaceChildren(emptyState('No se pudieron cargar los documentos. Comprueba las tablas, columnas y políticas de acceso (RLS) de Supabase.'));
+                    console.error('Error cargando el portal de cliente:', error);
+                }
+            }
+            function setAdminLoggedIn(session) {
+                const loggedIn = Boolean(session);
+                $('admin-login').classList.toggle('hidden', loggedIn);
+                $('admin-dashboard').classList.toggle('hidden', !loggedIn);
+                if (loggedIn) {
+                    $('admin-user').textContent = session.user.email || 'Usuario autorizado';
+                    loadAdminCounts();
+                }
+            }
+            async function syncAdminSession() {
+                if (!db) { $('admin-login').classList.remove('hidden'); return; }
+                const { data, error } = await db.auth.getSession();
+                if (error) showNotice('No se pudo comprobar la sesión de administración.');
+                setAdminLoggedIn(data?.session);
+            }
+            async function loadAdminCounts() {
+                try {
+                    const [invoices, documents] = await Promise.all([
+                        db.from('facturas').select('id', { count: 'exact', head: true }),
+                        db.from('documentos_iso').select('id', { count: 'exact', head: true }),
+                    ]);
+                    if (invoices.error) throw invoices.error;
+                    if (documents.error) throw documents.error;
+                    $('admin-invoices').textContent = invoices.count ?? '0';
+                    $('admin-documents').textContent = documents.count ?? '0';
+                } catch (error) {
+                    showNotice('La sesión está activa, pero Supabase no permite consultar los totales. Revisa las políticas RLS de administrador.');
+                    console.error('Error cargando resumen administrativo:', error);
+                }
+            }
+            $('login-form').addEventListener('submit', async (event) => {
+                event.preventDefault(); clearNotice();
+                if (!db) { showNotice('No se pudo conectar con el servicio de autenticación.'); return; }
+                const button = $('login-submit'); button.disabled = true; button.textContent = 'Verificando…';
+                const { data, error } = await db.auth.signInWithPassword({ email: $('login-email').value, password: $('login-password').value });
+                button.disabled = false; button.textContent = 'Iniciar sesión';
+                if (error) { showNotice('No se ha podido iniciar sesión. Comprueba las credenciales de usuario de Supabase.'); return; }
+                setAdminLoggedIn(data.session);
+            });
+            $('logout-button').addEventListener('click', async () => {
+                const { error } = await db.auth.signOut();
+                if (error) { showNotice('No se pudo cerrar la sesión.'); return; }
+                setAdminLoggedIn(null); clearNotice();
+            });
+
+            if (window.supabase?.createClient) {
+                db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+            }
+            loadClientPortal();
+        })();
+    </script>
+</body>
+</html>
