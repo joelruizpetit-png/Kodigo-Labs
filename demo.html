@@ -132,6 +132,7 @@
                     <label class="block text-sm font-semibold text-slate-700">Correo electrónico<input id="login-email" type="email" autocomplete="username" required class="mt-1.5 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-brand-orange focus:ring-2 focus:ring-orange-100"></label>
                     <label class="block text-sm font-semibold text-slate-700">Contraseña<input id="login-password" type="password" autocomplete="current-password" required class="mt-1.5 w-full rounded-xl border border-slate-300 px-4 py-3 outline-none transition focus:border-brand-orange focus:ring-2 focus:ring-orange-100"></label>
                     <button id="login-submit" class="w-full rounded-xl bg-brand-orange px-5 py-3 font-bold text-white transition hover:bg-orange-600" type="submit">Iniciar sesión</button>
+                    <button id="forgot-password" class="w-full py-2 text-sm font-semibold text-brand-orange transition hover:text-orange-700" type="button">Enviar enlace para establecer o recuperar la contraseña</button>
                 </form>
             </div>
             <div id="admin-dashboard" class="hidden">
@@ -373,6 +374,26 @@
                 button.disabled = false; button.textContent = 'Iniciar sesión';
                 if (error) { showNotice('No se ha podido iniciar sesión. Comprueba las credenciales de usuario de Supabase.'); return; }
                 setAdminLoggedIn(data.session);
+            });
+            $('forgot-password').addEventListener('click', async () => {
+                clearNotice();
+                const email = $('login-email').value.trim();
+                if (!email) {
+                    showNotice('Escribe primero el correo de tu cuenta para enviarte el enlace.');
+                    $('login-email').focus();
+                    return;
+                }
+                if (!db) { showNotice('No se pudo conectar con el servicio de autenticación.'); return; }
+                const button = $('forgot-password');
+                button.disabled = true; button.textContent = 'Enviando enlace…';
+                const redirectTo = new URL('/activar-cuenta.html', window.location.origin).toString();
+                const { error } = await db.auth.resetPasswordForEmail(email, { redirectTo });
+                button.disabled = false; button.textContent = 'Enviar enlace para establecer o recuperar la contraseña';
+                if (error) {
+                    showNotice('No se pudo enviar el enlace. Comprueba la configuración de correo y la URL de redirección permitida.');
+                    return;
+                }
+                showNotice('Si el correo corresponde a una cuenta, recibirás un enlace para establecer la contraseña. Revisa también el spam.', 'success');
             });
             $('logout-button').addEventListener('click', async () => {
                 const { error } = await db.auth.signOut();
