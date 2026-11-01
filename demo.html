@@ -408,7 +408,7 @@
                     const { error } = await db.auth.resetPasswordForEmail(email, { redirectTo });
                     if (error) {
                         console.error('Error enviando el enlace de contraseña:', error);
-                        showLoginFeedback('Supabase no pudo enviar el enlace. Comprueba que esta URL esté permitida: https://www.kodigolabs.es/activar-cuenta.html');
+                        showLoginFeedback(`Supabase rechazó la solicitud: ${error.message || 'error desconocido'}.`);
                         return;
                     }
                     showLoginFeedback('Si el correo corresponde a una cuenta, recibirás un enlace para establecer la contraseña. Revisa también el spam.', 'success');
