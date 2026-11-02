@@ -137,13 +137,64 @@
                 </form>
             </div>
             <div id="admin-dashboard" class="hidden">
-                <div class="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-5">
-                    <div><p class="text-sm text-slate-500">Sesión activa</p><p id="admin-user" class="font-bold text-brand-navy"></p></div>
-                    <button id="logout-button" type="button" class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50">Cerrar sesión</button>
+                <div class="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+                    <div class="flex items-center gap-3">
+                        <span class="grid h-11 w-11 place-items-center rounded-xl bg-orange-50 text-lg font-black text-brand-orange">K</span>
+                        <div><p class="text-xs font-bold uppercase tracking-wider text-slate-400">Vista de demostración · CRM & ERP</p><p class="font-bold text-brand-navy">Sesión: <span id="admin-user" class="font-semibold"></span></p></div>
+                    </div>
+                    <div class="flex items-center gap-3"><span class="hidden rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-emerald-700 sm:inline-flex">● Entorno de muestra</span><button id="logout-button" type="button" class="rounded-lg border border-slate-300 px-4 py-2 text-sm font-bold text-slate-700 transition hover:bg-slate-50">Cerrar sesión</button></div>
                 </div>
-                <div class="grid gap-5 md:grid-cols-2">
-                    <article class="surface rounded-2xl border border-slate-200 bg-white p-6"><p class="text-sm font-semibold text-slate-500">Registros accesibles</p><h3 class="mt-1 text-xl font-extrabold text-brand-navy">Facturas</h3><p id="admin-invoices" class="mt-4 text-3xl font-black text-brand-orange">—</p></article>
-                    <article class="surface rounded-2xl border border-slate-200 bg-white p-6"><p class="text-sm font-semibold text-slate-500">Registros accesibles</p><h3 class="mt-1 text-xl font-extrabold text-brand-navy">Documentos ISO</h3><p id="admin-documents" class="mt-4 text-3xl font-black text-brand-orange">—</p></article>
+
+                <div class="grid gap-6 xl:grid-cols-[230px_minmax(0,1fr)]">
+                    <aside class="surface h-fit rounded-2xl border border-slate-200 bg-white p-4" aria-label="Navegación del panel">
+                        <p class="px-3 pb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Espacio de trabajo</p>
+                        <nav class="grid grid-cols-2 gap-2 xl:grid-cols-1">
+                            <button type="button" class="rounded-xl bg-brand-navy px-3 py-2.5 text-left text-sm font-bold text-white">▦ <span class="ml-2">Resumen</span></button>
+                            <button type="button" class="rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">♙ <span class="ml-2">Clientes</span></button>
+                            <button type="button" class="rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">▤ <span class="ml-2">Facturación</span></button>
+                            <button type="button" class="rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">✓ <span class="ml-2">Auditorías ISO</span></button>
+                            <button type="button" class="rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">◷ <span class="ml-2">Tareas</span></button>
+                            <button type="button" class="rounded-xl px-3 py-2.5 text-left text-sm font-semibold text-slate-600 hover:bg-slate-50">◇ <span class="ml-2">Oportunidades</span></button>
+                        </nav>
+                        <div class="mt-5 rounded-xl bg-slate-50 p-3"><p class="text-xs font-semibold text-slate-500">Consultora</p><p class="mt-1 text-sm font-extrabold text-brand-navy">Kódigo Labs</p><p class="mt-1 text-xs text-slate-500">Panel interno</p></div>
+                    </aside>
+
+                    <div class="min-w-0 space-y-6">
+                        <div class="flex flex-wrap items-end justify-between gap-3">
+                            <div><p id="admin-date" class="text-sm font-semibold text-slate-500"></p><h3 class="mt-1 text-2xl font-black tracking-tight text-brand-navy sm:text-3xl">Panel de Control Interno</h3><p class="mt-1 text-sm text-slate-500">Clientes, cobros, tareas de auditoría y oportunidades en un solo lugar.</p></div>
+                            <button type="button" class="rounded-xl bg-brand-orange px-4 py-2.5 text-sm font-bold text-white shadow-sm">＋ Nuevo cliente</button>
+                        </div>
+
+                        <div class="grid gap-4 sm:grid-cols-2 2xl:grid-cols-4">
+                            <article class="surface rounded-2xl border border-slate-200 bg-white p-5"><p class="text-sm font-semibold text-slate-500">Clientes activos</p><div class="mt-2 flex items-end justify-between"><p class="text-3xl font-black text-brand-navy">24</p><span class="text-xs font-bold text-emerald-600">+3 este mes</span></div></article>
+                            <article class="surface rounded-2xl border border-slate-200 bg-white p-5"><p class="text-sm font-semibold text-slate-500">Cobros del mes</p><div class="mt-2 flex items-end justify-between"><p class="text-3xl font-black text-brand-navy">8.450 €</p><span class="text-xs font-bold text-emerald-600">↑ 8,2 %</span></div></article>
+                            <article class="surface rounded-2xl border border-slate-200 bg-white p-5"><p class="text-sm font-semibold text-slate-500">Documentos pendientes</p><div class="mt-2 flex items-end justify-between"><p class="text-3xl font-black text-brand-navy">7</p><span class="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-bold text-amber-800">Requieren atención</span></div></article>
+                            <article class="surface rounded-2xl border border-slate-200 bg-white p-5"><p class="text-sm font-semibold text-slate-500">Oportunidades abiertas</p><div class="mt-2 flex items-end justify-between"><p class="text-3xl font-black text-brand-navy">5</p><span class="text-xs font-bold text-brand-orange">12.600 € potencial</span></div></article>
+                        </div>
+
+                        <section class="surface overflow-hidden rounded-2xl border border-slate-200 bg-white" aria-labelledby="admin-clients-title">
+                            <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 px-5 py-4 sm:px-6"><div><p class="text-xs font-bold uppercase tracking-wider text-slate-400">CRM</p><h4 id="admin-clients-title" class="mt-1 text-lg font-extrabold text-brand-navy">Clientes y servicios</h4></div><button type="button" class="rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-600">Ver todos <span aria-hidden="true">→</span></button></div>
+                            <div class="overflow-x-auto"><table class="w-full min-w-[760px] text-left text-sm"><thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-400"><tr><th class="px-5 py-3 font-bold sm:px-6">Empresa / Cliente</th><th class="px-4 py-3 font-bold">Servicio contratado</th><th class="px-4 py-3 font-bold">Estado papeleo</th><th class="px-4 py-3 font-bold">Cobro mensual</th><th class="px-5 py-3 font-bold sm:px-6">Acción</th></tr></thead><tbody class="divide-y divide-slate-100 text-slate-700">
+                                <tr><td class="px-5 py-4 font-bold text-brand-navy sm:px-6">Consultoría Global S.L.</td><td class="px-4 py-4">Implantación ISO 27001</td><td class="px-4 py-4"><span class="rounded-md bg-emerald-100 px-2.5 py-1 font-semibold text-emerald-800">100% al día</span></td><td class="px-4 py-4 font-bold">450 € / mes</td><td class="px-5 py-4 font-bold text-brand-orange sm:px-6"><button type="button">Ver expediente</button></td></tr>
+                                <tr><td class="px-5 py-4 font-bold text-brand-navy sm:px-6">Transportes Norte C.B.</td><td class="px-4 py-4">Mantenimiento ISO 9001</td><td class="px-4 py-4"><span class="rounded-md bg-amber-100 px-2.5 py-1 font-semibold text-amber-800">1 doc. pendiente</span></td><td class="px-4 py-4 font-bold">300 € / mes</td><td class="px-5 py-4 font-bold text-brand-orange sm:px-6"><button type="button">Reclamar papel</button></td></tr>
+                                <tr><td class="px-5 py-4 font-bold text-brand-navy sm:px-6">Industrias Metalúrgicas</td><td class="px-4 py-4">Auditoría Ambiental 14001</td><td class="px-4 py-4"><span class="rounded-md bg-blue-100 px-2.5 py-1 font-semibold text-blue-800">En revisión</span></td><td class="px-4 py-4 font-bold">600 € / mes</td><td class="px-5 py-4 font-bold text-brand-orange sm:px-6"><button type="button">Revisar PDF</button></td></tr>
+                            </tbody></table></div>
+                        </section>
+
+                        <div class="grid gap-6 lg:grid-cols-2">
+                            <section class="surface rounded-2xl border border-slate-200 bg-white p-5 sm:p-6" aria-labelledby="admin-tasks-title"><div class="mb-4 flex items-center justify-between"><div><p class="text-xs font-bold uppercase tracking-wider text-slate-400">Seguimiento</p><h4 id="admin-tasks-title" class="mt-1 text-lg font-extrabold text-brand-navy">Próximas tareas</h4></div><span class="rounded-full bg-orange-50 px-3 py-1 text-xs font-bold text-brand-orange">4 abiertas</span></div><div class="space-y-3">
+                                <div class="flex items-center gap-3 rounded-xl bg-slate-50 p-3"><span class="grid h-9 w-9 place-items-center rounded-lg bg-rose-100 text-rose-700">!</span><div class="min-w-0 flex-1"><p class="truncate text-sm font-bold text-brand-navy">Preparar auditoría interna</p><p class="text-xs text-slate-500">Consultoría Global · Hoy</p></div><span class="text-xs font-bold text-rose-600">Urgente</span></div>
+                                <div class="flex items-center gap-3 rounded-xl bg-slate-50 p-3"><span class="grid h-9 w-9 place-items-center rounded-lg bg-amber-100 text-amber-700">↗</span><div class="min-w-0 flex-1"><p class="truncate text-sm font-bold text-brand-navy">Solicitar registro de residuos</p><p class="text-xs text-slate-500">Transportes Norte · 4 nov.</p></div><span class="text-xs font-bold text-amber-700">Pendiente</span></div>
+                                <div class="flex items-center gap-3 rounded-xl bg-slate-50 p-3"><span class="grid h-9 w-9 place-items-center rounded-lg bg-blue-100 text-blue-700">✓</span><div class="min-w-0 flex-1"><p class="truncate text-sm font-bold text-brand-navy">Revisar plan de objetivos</p><p class="text-xs text-slate-500">Industrias Metalúrgicas · 6 nov.</p></div><span class="text-xs font-bold text-blue-700">En curso</span></div>
+                            </div></section>
+                            <section class="surface rounded-2xl border border-slate-200 bg-white p-5 sm:p-6" aria-labelledby="admin-leads-title"><div class="mb-4 flex items-center justify-between"><div><p class="text-xs font-bold uppercase tracking-wider text-slate-400">Ventas</p><h4 id="admin-leads-title" class="mt-1 text-lg font-extrabold text-brand-navy">Oportunidades</h4></div><button type="button" class="text-sm font-bold text-brand-orange">Ver pipeline →</button></div><div class="space-y-4">
+                                <div><div class="mb-1 flex justify-between text-sm"><span class="font-semibold text-brand-navy">Implantación ISO 9001</span><span class="font-bold">3.600 €</span></div><div class="h-2 overflow-hidden rounded-full bg-slate-100"><div class="h-full w-3/4 rounded-full bg-brand-orange"></div></div><p class="mt-1 text-xs text-slate-500">Alimentaria del Vallès · Propuesta enviada</p></div>
+                                <div><div class="mb-1 flex justify-between text-sm"><span class="font-semibold text-brand-navy">Automatización documental</span><span class="font-bold">5.000 €</span></div><div class="h-2 overflow-hidden rounded-full bg-slate-100"><div class="h-full w-1/2 rounded-full bg-blue-500"></div></div><p class="mt-1 text-xs text-slate-500">Mecánica Ríos S.L. · Reunión agendada</p></div>
+                                <div><div class="mb-1 flex justify-between text-sm"><span class="font-semibold text-brand-navy">Auditoría ambiental</span><span class="font-bold">1.800 €</span></div><div class="h-2 overflow-hidden rounded-full bg-slate-100"><div class="h-full w-1/4 rounded-full bg-emerald-500"></div></div><p class="mt-1 text-xs text-slate-500">Obras y Servicios BCN · Contacto inicial</p></div>
+                            </div></section>
+                        </div>
+                        <p class="text-center text-xs text-slate-400">Los nombres, importes, tareas y métricas de este panel son datos ficticios de demostración.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -180,6 +231,7 @@
             let clientRequestId = 0;
 
             $('year').textContent = new Date().getFullYear();
+            $('admin-date').textContent = new Intl.DateTimeFormat('es-ES', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date());
 
             function showNotice(message, type = 'error') {
                 notice.textContent = message;
@@ -351,31 +403,13 @@
                 const loggedIn = Boolean(session);
                 $('admin-login').classList.toggle('hidden', loggedIn);
                 $('admin-dashboard').classList.toggle('hidden', !loggedIn);
-                if (loggedIn) {
-                    $('admin-user').textContent = session.user.email || 'Usuario autorizado';
-                    loadAdminCounts();
-                }
+                if (loggedIn) $('admin-user').textContent = session.user.email || 'Usuario autorizado';
             }
             async function syncAdminSession() {
                 if (!db) { $('admin-login').classList.remove('hidden'); return; }
                 const { data, error } = await db.auth.getSession();
                 if (error) showNotice('No se pudo comprobar la sesión de administración.');
                 setAdminLoggedIn(data?.session);
-            }
-            async function loadAdminCounts() {
-                try {
-                    const [invoices, documents] = await Promise.all([
-                        db.from('facturas').select('id', { count: 'exact', head: true }),
-                        db.from('documentos_iso').select('id', { count: 'exact', head: true }),
-                    ]);
-                    if (invoices.error) throw invoices.error;
-                    if (documents.error) throw documents.error;
-                    $('admin-invoices').textContent = invoices.count ?? '0';
-                    $('admin-documents').textContent = documents.count ?? '0';
-                } catch (error) {
-                    showNotice('La sesión está activa, pero Supabase no permite consultar los totales. Revisa las políticas RLS de administrador.');
-                    console.error('Error cargando resumen administrativo:', error);
-                }
             }
             $('login-form').addEventListener('submit', async (event) => {
                 event.preventDefault(); clearNotice(); clearLoginFeedback();
